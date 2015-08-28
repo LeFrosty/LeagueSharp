@@ -44,7 +44,7 @@ namespace Challenjour_Zilean
 
             Menu orbwalkerMenu = Menu.AddSubMenu(new Menu("Orbwalker", "Orbwalker"));
             Orbwalker = new Orbwalking.Orbwalker(orbwalkerMenu);
-            Menu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
+            orbwalkerMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
             Menu ts = Menu.AddSubMenu(new Menu("Target Selector", "Target Selector"));
             TargetSelector.AddToMenu(ts);
