@@ -155,7 +155,7 @@ namespace Challenjour_Zilean
         {
             var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Magical);
 
-            if (E.IsReady() && target.IsValidTarget(E.Range) && Menu.Item("comboE").GetValue<bool>())
+            if (E.IsReady() && target.IsValidTarget(E.Range) && Menu.Item("comboEenemy").GetValue<bool>())
                 E.Cast(target);
         }
 
