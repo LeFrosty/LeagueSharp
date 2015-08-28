@@ -76,10 +76,6 @@ namespace Challenjour_Zilean
             fleeMenu.AddItem(new MenuItem("Flee", "Flee").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
             fleeMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
-            Menu wMenu = Menu.AddSubMenu(new Menu("W", "W"));
-            wMenu.AddItem(new MenuItem("autoW", "Spam W If R On CD").SetValue(false));
-            wMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
-
             Menu rMenu = Menu.AddSubMenu(new Menu("R", "R"));
             rMenu.AddItem(new MenuItem("rSelf", "R Self").SetValue(true));
             rMenu.AddItem(new MenuItem("rSelfhp", "R Self On % HP").SetValue(new Slider(25, 1, 100)));
@@ -129,11 +125,6 @@ namespace Challenjour_Zilean
             if (Menu.Item("Flee").GetValue<KeyBind>().Active)
             {
                 flee();
-            }
-
-            if (Menu.Item("autoW").GetValue<bool>())
-            {
-                autoW();
             }
 
             if (Menu.Item("rSelf").GetValue<bool>())
@@ -284,29 +275,6 @@ namespace Challenjour_Zilean
 
         /// <summary>
         /// Flee End
-        /// </summary>
-        ///
-        /// <summary>
-        /// W
-        /// </summary>
-
-        private static void autoW()
-        {
-            if (R.IsReady())
-            {
-                return;
-            }
-            else
-            {
-                if (W.IsReady())
-                {
-                    W.Cast();
-                }
-            }
-        }
-
-        /// <summary>
-        /// W End
         /// </summary>
         /// 
         /// <summary>
