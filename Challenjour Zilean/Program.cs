@@ -93,6 +93,7 @@ namespace Challenjour_Zilean
             Drawing.OnDraw += Drawing_OnDraw;
             Game.OnUpdate += Game_OnUpdate;
             Notifications.AddNotification("Challenjour Zilean LOADED!", 10000);
+            Game.PrintChat("<font color=\"#00FFFF\">Challenjour Zilean by Frosty</font> - <font color=\"#00FFFF\">Loaded!</font>");
 
         }
 
