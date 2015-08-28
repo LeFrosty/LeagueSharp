@@ -90,6 +90,7 @@ namespace Challenjour_Zilean
             drawMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
             Menu.AddToMainMenu();
+            Drawing.OnDraw += Drawing_OnDraw;
             Game.OnUpdate += Game_OnUpdate;
             Notifications.AddNotification("Challenjour Zilean LOADED!", 10000);
 
