@@ -68,6 +68,13 @@ namespace Challenjour_Kayle
             clearMenu.AddItem(new MenuItem("LaneClear", "Lane Clear").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
             clearMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
+            Menu healMenu = Menu.AddSubMenu(new Menu("Auto Heal", "Auto Heal"));
+            healMenu.AddItem(new MenuItem("healMe", "Use W On Self").SetValue(true));
+            healMenu.AddItem(new MenuItem("healMeHP", "Use W On Self %")).SetValue(new Slider(70, 1, 100));
+            healMenu.AddItem(new MenuItem("healAlly", "Use W On Ally").SetValue(true));
+            healMenu.AddItem(new MenuItem("healAllyHP", "Use W On Ally %")).SetValue(new Slider(65, 1, 100));
+            healMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
+
             Menu fleeMenu = Menu.AddSubMenu(new Menu("Flee", "Flee"));
             fleeMenu.AddItem(new MenuItem("Flee", "Flee").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
             fleeMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
@@ -119,6 +126,16 @@ namespace Challenjour_Kayle
             {
                 clearQ();
                 clearE();
+            }
+
+            if (Menu.Item("healMe").GetValue<bool>())
+            {
+                healMe();
+            }
+
+            if (Menu.Item("healAlly").GetValue<bool>())
+            {
+                healAlly();
             }
 
             if (Menu.Item("Flee").GetValue<KeyBind>().Active)
@@ -266,6 +283,54 @@ namespace Challenjour_Kayle
         /// Lane Clear End
         /// </summary>
         /// 
+        /// <summary>
+        /// Heal
+        /// </summary>
+
+        private static void healMe()
+        {
+            if (Player.IsRecalling() || Player.InFountain())
+                return;
+
+            var healMe = Menu.Item("healMe").GetValue<bool>();
+            var healMeHP = Menu.Item("healMeHP").GetValue<Slider>().Value;
+
+            if (healMe && (Player.Health / Player.MaxHealth) * 100 <= healMeHP && W.IsReady())
+            {
+                W.Cast(Player);
+            }
+        }
+
+        private static void healAlly()
+        {
+            if (Player.IsRecalling() || Player.InFountain())
+                return;
+
+            var healAlly = Menu.Item("healAlly").GetValue<bool>();
+            var healAllyHP = Menu.Item("healAllyHP").GetValue<Slider>().Value;
+
+            foreach (var Ally in ObjectManager.Get<Obj_AI_Hero>().Where(Ally => Ally.IsAlly && !Ally.IsMe))
+            {
+                var allys = Menu.Item("useRally" + Ally.CharData);
+
+                if (Player.InFountain() || Player.IsRecalling())
+                    return;
+
+                if (healAlly && ((Ally.Health / Ally.MaxHealth) * 100 <= healAllyHP) && W.IsReady() &&
+                    Ally.Distance(Player.Position) <= W.Range)
+                {
+                    if (allys != null && allys.GetValue<bool>())
+                    {
+                        W.Cast(Ally);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Heal End
+        /// </summary>
+        ///
         /// <summary>
         /// Flee
         /// </summary>
