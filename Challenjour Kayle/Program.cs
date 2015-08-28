@@ -16,7 +16,7 @@ namespace Challenjour_Kayle
             Q, W, E, R;
 
         private static Menu Menu;
-        private static Color Frosty = new Color(0, 255, 255);
+        private static Color Frosty = new Color(255, 153, 51);
 
         private static Orbwalking.Orbwalker Orbwalker;
 

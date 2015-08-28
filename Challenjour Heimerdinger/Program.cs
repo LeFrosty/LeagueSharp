@@ -16,7 +16,7 @@ namespace Challenjour_Heimerdinger
             Q, W, E, R, W1, E1;
 
         private static Menu Menu;
-        private static Color Frosty = new Color(0, 255, 255);
+        private static Color Frosty = new Color(255, 153, 51);
 
         private static Orbwalking.Orbwalker Orbwalker;
 
