@@ -32,10 +32,10 @@ namespace Challenjour_Kayle
                 return;
             }
 
-            Q = new Spell(SpellSlot.Q, 0);
-            W = new Spell(SpellSlot.W, 0);
-            E = new Spell(SpellSlot.E, 0);
-            R = new Spell(SpellSlot.R, 0);
+            Q = new Spell(SpellSlot.Q, 650);
+            W = new Spell(SpellSlot.W, 900);
+            E = new Spell(SpellSlot.E, 525);
+            R = new Spell(SpellSlot.R, 900);
 
             Menu = new Menu("Challenjour Kayle", "Challenjour Kayle", true);
             Menu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
