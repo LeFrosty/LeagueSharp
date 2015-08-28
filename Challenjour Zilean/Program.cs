@@ -106,6 +106,7 @@ namespace Challenjour_Zilean
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
             {
                 comboE();
+                comboEself();
                 comboQ();
                 comboW();
             }
@@ -149,6 +150,12 @@ namespace Challenjour_Zilean
 
             if (E.IsReady() && target.IsValidTarget(E.Range) && Menu.Item("comboEenemy").GetValue<bool>())
                 E.Cast(target);
+        }
+
+        private static void comboEself()
+        {
+            if (E.IsReady() && Menu.Item("comboEself").GetValue<bool>())
+                E.Cast(Player);
         }
 
         private static void comboQ()
