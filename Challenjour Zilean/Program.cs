@@ -312,7 +312,7 @@ namespace Challenjour_Zilean
 
             foreach (var Ally in ObjectManager.Get<Obj_AI_Hero>().Where(Ally => Ally.IsAlly && !Ally.IsMe))
             {
-                var allys = Menu.Item("autoRally" + Ally.CharData);
+                var allys = Menu.Item("rAlly" + Ally.CharData);
 
                 if (Player.InFountain() || Player.IsRecalling())
                     return;

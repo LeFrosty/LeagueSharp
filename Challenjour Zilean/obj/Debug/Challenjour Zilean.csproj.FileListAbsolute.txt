@@ -1,2 +1,3 @@
 D:\Learning C# Projects\Challenjour Zilean\Challenjour Zilean\bin\Debug\Challenjour Zilean.exe.config
 D:\L# Assemblies\Challenjour Zilean\Challenjour Zilean\bin\Debug\Challenjour Zilean.exe.config
+D:\L# Assemblies\Challenjour Series\Challenjour Zilean\Challenjour Zilean\bin\Debug\Challenjour Zilean.exe.config
