@@ -1,9 +1,7 @@
 Hey! Welcome to my repository for LeagueSharp.
 
-My assemblies are mostly made for personal use, but feel free to use them!
-They might not be too advanced, but they fit my needs.
-Some of the code I use is others' work, just edited a bit for my assembly, so all credit to them for those features.
-I'm not really a coder, nor do I even know much about C#. I just learned some stuff from reading other assemblies and editing others' work to fit my needs.
+This is the repository for my new Challenjour Series Assemblies!
+I'm trying really hard to make them as good as possible, even though I don't know too much about C#.
 
 Have fun and remember to upvote the assemblies on the L# Database if you like my work! :)
 
