@@ -65,6 +65,8 @@ namespace Challenjour_Kayle
             Menu clearMenu = Menu.AddSubMenu(new Menu("LaneClear", "Lane Clear"));
             clearMenu.AddItem(new MenuItem("clearQ", "Use Q").SetValue(true));
             clearMenu.AddItem(new MenuItem("clearE", "Use E").SetValue(true));
+            clearMenu.AddItem(new MenuItem("clearManager", "Use Mana Manager").SetValue(true));
+            clearMenu.AddItem(new MenuItem("clearMP", "Lane Clear if Mana % >")).SetValue(new Slider(45, 1, 100));
             clearMenu.AddItem(new MenuItem("LaneClear", "Lane Clear").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
             clearMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
@@ -237,6 +239,7 @@ namespace Challenjour_Kayle
 
         private static void clearQ()
         {
+            var clearMP = Menu.Item("clearMP").GetValue<Slider>().Value;
             var minion = MinionManager.GetMinions(Player.ServerPosition, Q.Range).FirstOrDefault();
             if (minion == null || minion.Name.ToLower().Contains("ward"))
             {
@@ -251,7 +254,7 @@ namespace Challenjour_Kayle
                     Q.Width,
                     Q.Range);
 
-            if (Menu.Item("clearQ").GetValue<bool>() && minion.IsValidTarget() && Q.IsReady())
+            if (Menu.Item("clearQ").GetValue<bool>() && minion.IsValidTarget() && Q.IsReady() && (Player.Mana / Player.MaxMana) * 100 <= clearMP && (Menu.Item("clearManager").GetValue<bool>()))
             {
                 Q.Cast(minion);
             }
@@ -259,6 +262,7 @@ namespace Challenjour_Kayle
 
         private static void clearE()
         {
+            var clearMP = Menu.Item("clearMP").GetValue<Slider>().Value;
             var minion = MinionManager.GetMinions(Player.ServerPosition, E.Range).FirstOrDefault();
             if (minion == null || minion.Name.ToLower().Contains("ward"))
             {
@@ -273,7 +277,7 @@ namespace Challenjour_Kayle
                     E.Width,
                     E.Range);
 
-            if (Menu.Item("clearE").GetValue<bool>() && minion.IsValidTarget() && E.IsReady())
+            if (Menu.Item("clearE").GetValue<bool>() && minion.IsValidTarget() && E.IsReady() && (Player.Mana / Player.MaxMana) * 100 <= clearMP && (Menu.Item("clearManager").GetValue<bool>()))
             {
                 E.Cast();
             }
