@@ -180,7 +180,7 @@ namespace Challenjour_Heimerdinger
             }
             else
             {
-                if (R.IsReady() && E.IsReady() && (Menu.Item("comboR").GetValue<bool>() && Player.CountEnemiesInRange(2155) > 0))
+                if (R.IsReady() && E.IsReady() && (Menu.Item("comboR").GetValue<bool>() && Player.CountEnemiesInRange(1099) > 0))
                 {
                     R.Cast();
                     if (target.IsValidTarget(E1.Range))
