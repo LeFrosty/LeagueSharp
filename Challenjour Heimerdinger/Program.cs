@@ -78,6 +78,7 @@ namespace Challenjour_Heimerdinger
             ksMenu.AddItem(new MenuItem("ksE", "Use E").SetValue(true));
             ksMenu.AddItem(new MenuItem("ksWR", "Use R + W").SetValue(false));
             ksMenu.AddItem(new MenuItem("ksER", "Use E + W").SetValue(false));
+            ksMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
             Menu clearMenu = Menu.AddSubMenu(new Menu("Lane Clear", "Lane Clear"));
             clearMenu.AddItem(new MenuItem("clearW", "Use W").SetValue(true));
