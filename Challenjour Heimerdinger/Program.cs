@@ -188,6 +188,11 @@ namespace Challenjour_Heimerdinger
 
         private static void comboQ()
         {
+            if (R.IsChargedSpell)
+            {
+                return;
+            }
+
             if (Q.IsReady() && Menu.Item("comboQ").GetValue<bool>() && Player.CountEnemiesInRange(600) > 0)
             {
                 Q.Cast(Player);
