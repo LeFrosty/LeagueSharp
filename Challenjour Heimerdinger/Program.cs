@@ -253,23 +253,23 @@ namespace Challenjour_Heimerdinger
         {
             var target = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
 
-            if (Menu.Item("ksW").GetValue<bool>() && W.IsReady() && target.IsValidTarget(W.Range) && W.IsReady())
+            if (Menu.Item("ksW").GetValue<bool>() && W.IsReady() && target.IsValidTarget(W.Range) && W.IsReady() && W.IsKillable(target))
             {
                 W.CastIfHitchanceEquals(target, HitChance.VeryHigh);
             }
 
-            if (Menu.Item("ksE").GetValue<bool>() && E.IsReady() && target.IsValidTarget(E.Range) && E.IsReady())
+            if (Menu.Item("ksE").GetValue<bool>() && E.IsReady() && target.IsValidTarget(E.Range) && E.IsReady() && E.IsKillable(target))
             {
                 E.CastIfHitchanceEquals(target, HitChance.VeryHigh);
             }
 
-            if (Menu.Item("ksWR").GetValue<bool>() && R.IsReady() && W.IsReady() && target.IsValidTarget(W1.Range))
+            if (Menu.Item("ksWR").GetValue<bool>() && R.IsReady() && W.IsReady() && target.IsValidTarget(W1.Range) && W1.IsKillable(target))
             {
                 R.Cast();
                 W1.CastIfHitchanceEquals(target, HitChance.VeryHigh);
             }
 
-            if (Menu.Item("ksER").GetValue<bool>() && R.IsReady() && E.IsReady() && target.IsValidTarget(E1.Range))
+            if (Menu.Item("ksER").GetValue<bool>() && R.IsReady() && E.IsReady() && target.IsValidTarget(E1.Range) && E1.IsKillable(target))
             {
                 E1.CastIfHitchanceEquals(target, HitChance.VeryHigh);
             }
@@ -391,7 +391,6 @@ namespace Challenjour_Heimerdinger
                 {
                     Render.Circle.DrawCircle(Player.Position, 2155, Color2.Aqua);
                 }
-
             }
         }
 
