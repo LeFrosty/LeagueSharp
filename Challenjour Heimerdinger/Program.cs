@@ -72,12 +72,6 @@ namespace Challenjour_Heimerdinger
             harassMenu.AddItem(new MenuItem("Harass", "Harass").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Press)));
             harassMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
-            Menu autoHMenu = Menu.AddSubMenu(new Menu("AutoHarass", "Auto Harass"));
-            autoHMenu.AddItem(new MenuItem("autoHW", "Use W").SetValue(true));
-            autoHMenu.AddItem(new MenuItem("autoHE", "Use E").SetValue(true));
-            autoHMenu.AddItem(new MenuItem("autoH", "Auto Harass").SetValue(new KeyBind("L".ToCharArray()[0], KeyBindType.Toggle)));
-            autoHMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
-
             Menu ksMenu = Menu.AddSubMenu(new Menu("KS", "KS"));
             ksMenu.AddItem(new MenuItem("ks", "KS").SetValue(true));
             ksMenu.AddItem(new MenuItem("ksW", "Use W").SetValue(true));
@@ -140,11 +134,6 @@ namespace Challenjour_Heimerdinger
                 harassQ();
                 harassE();
                 harassW();
-            }
-
-            if (Menu.Item("autoH").GetValue<bool>())
-            {
-                autoH();
             }
 
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
@@ -257,29 +246,6 @@ namespace Challenjour_Heimerdinger
         /// Harass End
         /// </summary>
         /// 
-        /// <summary>
-        /// Auto Harass
-        /// </summary>
-
-        private static void autoH()
-        {
-            var target = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
-
-            if (Menu.Item("autoHW").GetValue<bool>() && W.IsReady() && target.IsValidTarget(W.Range) && (Menu.Item("autoH").GetValue<bool>()))
-            {
-                W.CastIfHitchanceEquals(target, HitChance.VeryHigh);
-            }
-
-            if (Menu.Item("autoHE").GetValue<bool>() && E.IsReady() && target.IsValidTarget(E.Range) && (Menu.Item("autoH").GetValue<bool>()))
-            {
-                E.CastIfHitchanceEquals(target, HitChance.VeryHigh);
-            }
-        }
-
-        /// <summary>
-        /// Auto Harass End
-        /// </summary>
-        ///
         /// <summary>
         /// KS
         /// </summary>
