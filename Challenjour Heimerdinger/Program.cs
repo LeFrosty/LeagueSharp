@@ -172,7 +172,7 @@ namespace Challenjour_Heimerdinger
         {
             var target = TargetSelector.GetTarget(W1.Range, TargetSelector.DamageType.Magical);
 
-            if (Menu.Item("rR").IsActive() && R.IsReady() && W.IsReady() && (Menu.Item("comboR").GetValue<bool>() && Player.CountEnemiesInRange(1100) > 0))
+            if (Menu.Item("rR").IsActive() && R.IsReady() && W.IsReady() && (Menu.Item("comboR").GetValue<bool>()))
             {
                 R.Cast();
                 if (target.IsValidTarget(W1.Range))
@@ -180,7 +180,7 @@ namespace Challenjour_Heimerdinger
             }
             else
             {
-                if (R.IsReady() && E.IsReady() && (Menu.Item("comboR").GetValue<bool>() && Player.CountEnemiesInRange(1099) > 0))
+                if (R.IsReady() && E.IsReady() && (Menu.Item("comboR").GetValue<bool>()))
                 {
                     R.Cast();
                     if (target.IsValidTarget(E1.Range))
