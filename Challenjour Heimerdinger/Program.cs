@@ -265,12 +265,12 @@ namespace Challenjour_Heimerdinger
         {
             var target = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
 
-            if (Menu.Item("autoHW").GetValue<bool>() && W.IsReady() && target.IsValidTarget(W.Range) && W.IsReady() && (Menu.Item("autoH").GetValue<bool>()))
+            if (Menu.Item("autoHW").GetValue<bool>() && W.IsReady() && target.IsValidTarget(W.Range) && (Menu.Item("autoH").GetValue<bool>()))
             {
                 W.CastIfHitchanceEquals(target, HitChance.VeryHigh);
             }
 
-            if (Menu.Item("autoHE").GetValue<bool>() && E.IsReady() && target.IsValidTarget(E.Range) && E.IsReady() && (Menu.Item("autoH").GetValue<bool>()))
+            if (Menu.Item("autoHE").GetValue<bool>() && E.IsReady() && target.IsValidTarget(E.Range) && (Menu.Item("autoH").GetValue<bool>()))
             {
                 E.CastIfHitchanceEquals(target, HitChance.VeryHigh);
             }
