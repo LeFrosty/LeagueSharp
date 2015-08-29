@@ -76,6 +76,7 @@ namespace Challenjour_Heimerdinger
             autoHMenu.AddItem(new MenuItem("autoHW", "Use W").SetValue(true));
             autoHMenu.AddItem(new MenuItem("autoHE", "Use E").SetValue(true));
             autoHMenu.AddItem(new MenuItem("autoH", "Auto Harass").SetValue(true));
+            autoHMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
             Menu ksMenu = Menu.AddSubMenu(new Menu("KS", "KS"));
             ksMenu.AddItem(new MenuItem("ks", "KS").SetValue(true));
