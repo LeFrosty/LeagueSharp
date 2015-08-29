@@ -167,14 +167,12 @@ namespace Challenjour_Heimerdinger
                 if (target.IsValidTarget(W1.Range))
                     W1.CastIfHitchanceEquals(target, HitChance.VeryHigh);
             }
-            else
+
+            if (!Menu.Item("rR").IsActive() && R.IsReady() && E.IsReady() && (Menu.Item("comboR").GetValue<bool>()))
             {
-                if (R.IsReady() && E.IsReady() && (Menu.Item("comboR").GetValue<bool>()))
-                {
-                    R.Cast();
-                    if (target.IsValidTarget(E1.Range))
-                        E1.CastIfHitchanceEquals(target, HitChance.VeryHigh);
-                }
+                R.Cast();
+                if (target.IsValidTarget(E1.Range))
+                    E1.CastIfHitchanceEquals(target, HitChance.VeryHigh);
             }
         }
 
@@ -188,31 +186,52 @@ namespace Challenjour_Heimerdinger
 
         private static void comboQ()
         {
-            if (R.IsChargedSpell)
+            if (Player.HasBuff("HeimerdingerR"))
             {
                 return;
             }
 
-            if (Q.IsReady() && Menu.Item("comboQ").GetValue<bool>() && Player.CountEnemiesInRange(600) > 0)
+            else
             {
-                Q.Cast(Player);
+                if (Q.IsReady() && Menu.Item("comboQ").GetValue<bool>() && Player.CountEnemiesInRange(600) > 0)
+                {
+                    Q.Cast(Player);
+                }
             }
+
         }
 
         private static void comboE()
         {
-            var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Magical);
+            if (Player.HasBuff("HeimerdingerR"))
+            {
+                return;
+            }
 
-            if (E.IsReady() && target.IsValidTarget(E.Range) && Menu.Item("comboE").GetValue<bool>())
-                E.CastIfHitchanceEquals(target, HitChance.VeryHigh);
+            else
+            {
+                var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Magical);
+
+                if (E.IsReady() && target.IsValidTarget(E.Range) && Menu.Item("comboE").GetValue<bool>())
+                    E.CastIfHitchanceEquals(target, HitChance.VeryHigh);
+            }
         }
 
         private static void comboW()
         {
-            var target = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
+            if (Player.HasBuff("HeimerdingerR"))
+            {
+                return;
+            }
 
-            if (W.IsReady() && target.IsValidTarget(W.Range) && Menu.Item("comboW").GetValue<bool>())
-                W.CastIfHitchanceEquals(target, HitChance.VeryHigh);
+            else
+            {
+                var target = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
+
+                if (W.IsReady() && target.IsValidTarget(W.Range) && Menu.Item("comboW").GetValue<bool>())
+                    W.CastIfHitchanceEquals(target, HitChance.VeryHigh);
+            }
+
         }
 
         /// <summary>
