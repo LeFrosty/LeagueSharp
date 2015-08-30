@@ -411,22 +411,22 @@ namespace Challenjour_Kayle
 
                 if (Menu.Item("drawQ").GetValue<bool>())
                 {
-                    Render.Circle.DrawCircle(Player.Position, Q.Range, Color2.Aqua);
+                    Render.Circle.DrawCircle(Player.Position, Q.Range, Color2.Goldenrod);
                 }
 
                 if (Menu.Item("drawW").GetValue<bool>())
                 {
-                    Render.Circle.DrawCircle(Player.Position, W.Range, Color2.Aqua);
+                    Render.Circle.DrawCircle(Player.Position, W.Range, Color2.Goldenrod);
                 }
 
                 if (Menu.Item("drawE").GetValue<bool>())
                 {
-                    Render.Circle.DrawCircle(Player.Position, E.Range, Color2.Aqua);
+                    Render.Circle.DrawCircle(Player.Position, E.Range, Color2.Goldenrod);
                 }
 
                 if (Menu.Item("drawR").GetValue<bool>())
                 {
-                    Render.Circle.DrawCircle(Player.Position, R.Range, Color2.Aqua);
+                    Render.Circle.DrawCircle(Player.Position, R.Range, Color2.Goldenrod);
                 }
 
             }

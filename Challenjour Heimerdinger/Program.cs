@@ -12,10 +12,6 @@ namespace Challenjour_Heimerdinger
 
         private static Obj_AI_Hero Player { get { return ObjectManager.Player; } }
 
-        private static int lastSwitch;
-
-        private static Notification notification;
-
         private static Spell
             Q, W, E, R, W1, E1;
 
@@ -427,22 +423,22 @@ namespace Challenjour_Heimerdinger
 
                 if (Menu.Item("drawQ").GetValue<bool>())
                 {
-                    Render.Circle.DrawCircle(Player.Position, Q.Range, Color2.Aqua);
+                    Render.Circle.DrawCircle(Player.Position, Q.Range, Color2.Goldenrod);
                 }
 
                 if (Menu.Item("drawW").GetValue<bool>())
                 {
-                    Render.Circle.DrawCircle(Player.Position, W.Range, Color2.Aqua);
+                    Render.Circle.DrawCircle(Player.Position, W.Range, Color2.Goldenrod);
                 }
 
                 if (Menu.Item("drawE").GetValue<bool>())
                 {
-                    Render.Circle.DrawCircle(Player.Position, E.Range, Color2.Aqua);
+                    Render.Circle.DrawCircle(Player.Position, E.Range, Color2.Goldenrod);
                 }
 
                 if (Menu.Item("drawE1").GetValue<bool>())
                 {
-                    Render.Circle.DrawCircle(Player.Position, 2155, Color2.Aqua);
+                    Render.Circle.DrawCircle(Player.Position, 2155, Color2.Goldenrod);
                 }
             }
         }
