@@ -12,6 +12,10 @@ namespace Challenjour_Heimerdinger
 
         private static Obj_AI_Hero Player { get { return ObjectManager.Player; } }
 
+        private static int lastSwitch;
+
+        private static Notification notification;
+
         private static Spell
             Q, W, E, R, W1, E1;
 
@@ -62,6 +66,7 @@ namespace Challenjour_Heimerdinger
             comboMenu.AddItem(new MenuItem("comboE", "Use E").SetValue(true));
             comboMenu.AddItem(new MenuItem("comboR", "Use R").SetValue(true));
             comboMenu.AddItem(new MenuItem("Combo", "Combo").SetValue(new KeyBind(32, KeyBindType.Press)));
+            comboMenu.Item("Combo").SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
             comboMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
             Menu harassMenu = Menu.AddSubMenu(new Menu("Harass", "Harass"));
@@ -70,6 +75,7 @@ namespace Challenjour_Heimerdinger
             harassMenu.AddItem(new MenuItem("harassE", "Use E").SetValue(true));
             harassMenu.AddItem(new MenuItem("harassR", "Use R").SetValue(false));
             harassMenu.AddItem(new MenuItem("Harass", "Harass").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Press)));
+            harassMenu.Item("Harass").SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
             harassMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
             Menu ksMenu = Menu.AddSubMenu(new Menu("KS", "KS"));
@@ -78,14 +84,17 @@ namespace Challenjour_Heimerdinger
             ksMenu.AddItem(new MenuItem("ksE", "Use E").SetValue(true));
             ksMenu.AddItem(new MenuItem("ksWR", "Use R + W").SetValue(false));
             ksMenu.AddItem(new MenuItem("ksER", "Use E + W").SetValue(false));
+            ksMenu.Item("ks").SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
             ksMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
             Menu clearMenu = Menu.AddSubMenu(new Menu("Lane Clear", "Lane Clear"));
+            clearMenu.AddItem(new MenuItem("clearQ", "Use Q").SetValue(false));
             clearMenu.AddItem(new MenuItem("clearW", "Use W").SetValue(true));
             clearMenu.AddItem(new MenuItem("clearE", "Use E").SetValue(true));
             clearMenu.AddItem(new MenuItem("clearManager", "Use Mana Manager").SetValue(true));
             clearMenu.AddItem(new MenuItem("clearMP", "Lane Clear if Mana % >")).SetValue(new Slider(45, 1, 100));
             clearMenu.AddItem(new MenuItem("LaneClear", "Lane Clear").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
+            clearMenu.Item("LaneClear").SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
             clearMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
             Menu fleeMenu = Menu.AddSubMenu(new Menu("Flee", "Flee"));
@@ -93,10 +102,15 @@ namespace Challenjour_Heimerdinger
             fleeMenu.AddItem(new MenuItem("fleeW", "Use W").SetValue(false));
             fleeMenu.AddItem(new MenuItem("fleeE", "Use E").SetValue(true));
             fleeMenu.AddItem(new MenuItem("Flee", "Flee").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
+            fleeMenu.Item("Flee").SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
             fleeMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
             Menu rMenu = Menu.AddSubMenu(new Menu("R", "R"));
-            rMenu.AddItem(new MenuItem("rR", "On = W | Off = E").SetValue(true));
+            rMenu.AddItem(new MenuItem("rQ", "Use R + Q").SetValue(false));
+            rMenu.AddItem(new MenuItem("rW", "Use R + W").SetValue(true));
+            rMenu.AddItem(new MenuItem("rE", "Use R + E").SetValue(false));
+            rMenu.AddItem(new MenuItem("one", "Only 1 Should Be On At A Time!"));
+            rMenu.Item("one").SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
             rMenu.SetFontStyle(System.Drawing.FontStyle.Regular, Frosty);
 
             Menu drawMenu = Menu.AddSubMenu(new Menu("Drawings", "Drawings"));
@@ -110,7 +124,7 @@ namespace Challenjour_Heimerdinger
             Drawing.OnDraw += Drawing_OnDraw;
             Game.OnUpdate += Game_OnUpdate;
             Notifications.AddNotification("Challenjour Heimerdinger!", 10000);
-            Game.PrintChat("<font color=\"#00FFFF\">Challenjour Heimerdinger by Frosty</font> - <font color=\"#00FFFF\">Loaded!</font>");
+            Game.PrintChat("<font color=\"#FF9933\">Challenjour Heimerdinger by Frosty</font> - <font color=\"#FF9933\">Loaded!</font>");
 
         }
 
@@ -138,6 +152,7 @@ namespace Challenjour_Heimerdinger
 
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
             {
+                clearQ();
                 clearE();
                 clearW();
             }
@@ -159,20 +174,28 @@ namespace Challenjour_Heimerdinger
 
         private static void rR()
         {
-            var target = TargetSelector.GetTarget(W1.Range, TargetSelector.DamageType.Magical);
 
-            if (Menu.Item("rR").IsActive() && R.IsReady() && W.IsReady() && (Menu.Item("comboR").GetValue<bool>()))
+            if (R.IsReady() && W.IsReady() && (Menu.Item("comboR").GetValue<bool>() && Menu.Item("rW").GetValue<bool>()))
             {
+                var target = TargetSelector.GetTarget(W1.Range, TargetSelector.DamageType.Magical);
                 R.Cast();
                 if (target.IsValidTarget(W1.Range))
                     W1.CastIfHitchanceEquals(target, HitChance.VeryHigh);
             }
 
-            if (!Menu.Item("rR").IsActive() && R.IsReady() && E.IsReady() && (Menu.Item("comboR").GetValue<bool>()))
+            if (R.IsReady() && E.IsReady() && (Menu.Item("comboR").GetValue<bool>() && Menu.Item("rE").GetValue<bool>()))
             {
+                var target = TargetSelector.GetTarget(E1.Range, TargetSelector.DamageType.Magical);
                 R.Cast();
                 if (target.IsValidTarget(E1.Range))
-                    E1.CastIfHitchanceEquals(target, HitChance.VeryHigh);
+                    E1.CastIfHitchanceEquals(target, HitChance.High);
+            }
+
+            if (R.IsReady() && Q.IsReady() && (Menu.Item("comboR").GetValue<bool>() && Menu.Item("rQ").GetValue<bool>()))
+            {
+                var target = TargetSelector.GetTarget(600, TargetSelector.DamageType.Magical);
+                R.Cast();
+                Q.Cast(Player);
             }
         }
 
@@ -193,7 +216,7 @@ namespace Challenjour_Heimerdinger
 
             else
             {
-                if (Q.IsReady() && Menu.Item("comboQ").GetValue<bool>() && Player.CountEnemiesInRange(600) > 0)
+                if (Q.IsReady() && Menu.Item("comboQ").GetValue<bool>() && Player.CountEnemiesInRange(500) > 0)
                 {
                     Q.Cast(Player);
                 }
@@ -322,7 +345,7 @@ namespace Challenjour_Heimerdinger
                     E.Width,
                     E.Range);
 
-            if (Menu.Item("clearE").GetValue<bool>() && minion.IsValidTarget() && E.IsReady() && (Player.Mana / Player.MaxMana) * 100 <= clearMP && (Menu.Item("clearManager").GetValue<bool>()))
+            if (Menu.Item("clearE").GetValue<bool>() && minion.IsValidTarget() && E.IsReady() && (Player.Mana / Player.MaxMana) * 100 >= clearMP && (Menu.Item("clearManager").GetValue<bool>()))
             {
                 E.Cast(farmLocation.Position);
             }
@@ -345,10 +368,15 @@ namespace Challenjour_Heimerdinger
                     W.Width,
                     W.Range);
 
-            if (Menu.Item("clearW").GetValue<bool>() && minion.IsValidTarget() && W.IsReady() && (Player.Mana / Player.MaxMana) * 100 <= clearMP && (Menu.Item("clearManager").GetValue<bool>()))
+            if (Menu.Item("clearW").GetValue<bool>() && minion.IsValidTarget() && W.IsReady() && (Player.Mana / Player.MaxMana) * 100 >= clearMP && (Menu.Item("clearManager").GetValue<bool>()))
             {
                 W.Cast(farmLocation.Position);
             }
+        }
+
+        private static void clearQ()
+        {
+
         }
 
         /// <summary>
